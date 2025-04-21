@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dragonrip Toolbar
 // @namespace    http://tampermonkey.net/
-// @version      1.0.11
+// @version      1.0.13
 // @description  Shortcut toolbar for Dragonrip.com
 // @author       Kronos1
 // @match         *://*.dragonrip.com/*
@@ -19,7 +19,8 @@
             - home, bank, prof, shop, combat, market, quests, events, dungeon
             - mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery
             - | = separator space
-            - [] = large spearator space */
+            - [] = large spearator space 
+    */
     const toolbarItems = [
             'home', 'bank', 'prof','shop', 'combat', '|', 
             'mining', 'smithing',  'fishing',  'hunter', 'herbs', 'cooking', 
@@ -36,131 +37,79 @@
     
     // Data for link items
     const data = {
-
         links: {
             'home': { 
-                label:'Home',
-                url:'https://dragonrip.com/game/play.php',
-                icon:'https://i.imgur.com/Vn0ku7D.png'
+                label:'Home', url:'https://dragonrip.com/game/play.php', icon:'https://i.imgur.com/Vn0ku7D.png'
             },
             'bank': {
-                label:'Bank',
-                url:'https://dragonrip.com/game/bank.php',
-                icon:'/game/images/icons/bank.png'
+                label:'Bank', url:'https://dragonrip.com/game/bank.php', icon:'/game/images/icons/bank.png'
             },
             'prof': { // Professions/skills
-                label:'Skills',
-                url:'https://dragonrip.com/game/prof.php',
-                icon:'/game/images/icons/prof.png'
+                label:'Skills', url:'https://dragonrip.com/game/prof.php', icon:'/game/images/icons/prof.png'
             },
             'shop': { // General store
-                label:'Shop',
-                url:'https://dragonrip.com/game/shop.php',
-                icon:'/game/images/icons/shop.png'
+                label:'Shop', url:'https://dragonrip.com/game/shop.php', icon:'/game/images/icons/shop.png'
             },
             'combat': { //Fighting fields
-                label:'Combat',
-                url:'https://dragonrip.com/game/fighting.php',
-                icon:'/game/images/icons/kova.png'
+                label:'Combat', url:'https://dragonrip.com/game/fighting.php', icon:'/game/images/icons/kova.png'
             },
             'quests': { 
-                label:'Quests',
-                url:'https://dragonrip.com/game/quest.php',
-                icon:'/game/images/icons/quest.png'
+                label:'Quests', url:'https://dragonrip.com/game/quest.php', icon:'/game/images/icons/quest.png'
             },
             'market': { 
-                label:'Market',
-                url:'https://dragonrip.com/game/market.php',
-                icon:'/game/images/icons/market.png'
+                label:'Market', url:'https://dragonrip.com/game/market.php', icon:'/game/images/icons/market.png'
             },
             'events': { 
-                label:'Events',
-                url:'https://dragonrip.com/game/event.php',
-                icon:'/game/images/icons/events.png'
+                label:'Events', url:'https://dragonrip.com/game/event.php', icon:'/game/images/icons/events.png'
             },
             'dungeon': { 
-                label:'Dungeon',
-                url:'https://dragonrip.com/game/dungeon.php',
-                icon:'/game/images/icons/dung.png'
+                label:'Dungeon', url:'https://dragonrip.com/game/dungeon.php', icon:'/game/images/icons/dung.png'
             },
-
-       
             'mining': {
-                label:'Mining',
-                url:'https://dragonrip.com/game/miningter.php',
-                icon:'/game/images/bigicons/pick.png'
+                label:'Mining', url:'https://dragonrip.com/game/miningter.php', icon:'/game/images/bigicons/pick.png'
             },
             'smithing': {
-                label:'Smith',
-                url:'https://dragonrip.com/game/blacksm.php',
-                icon:'/game/images/bigicons/anvil.png'
+                label:'Smith', url:'https://dragonrip.com/game/blacksm.php', icon:'/game/images/bigicons/anvil.png'
             },
             'fishing': {
-                label:'Fish',
-                url:'https://dragonrip.com/game/fish.php',
-                icon:'/game/images/bigicons/fish.png'
+                label:'Fish', url:'https://dragonrip.com/game/fish.php', icon:'/game/images/bigicons/fish.png'
             },
             'hunter': {
-                label:'Hunter',
-                url:'https://dragonrip.com/game/hunter.php',
-                icon:'/game/images/bigicons/hunter.png'
+                label:'Hunter', url:'https://dragonrip.com/game/hunter.php', icon:'/game/images/bigicons/hunter.png'
             },
             'herbs': {
-                label:'Herbs',
-                url:'https://dragonrip.com/game/herbalism.php',
-                icon:'/game/images/bigicons/herb.png'
+                label:'Herbs', url:'https://dragonrip.com/game/herbalism.php', icon:'/game/images/bigicons/herb.png'
             },
             'cooking': {
-                label:'Cook',
-                url:'https://dragonrip.com/game/cook.php',
-                icon:'/game/images/bigicons/cook.png'
+                label:'Cook', url:'https://dragonrip.com/game/cook.php', icon:'/game/images/bigicons/cook.png'
             },
             'crafting': {
-                label:'Craft',
-                url:'https://dragonrip.com/game/crafting.php',
-                icon:'/game/images/bigicons/crafting.png'
+                label:'Craft', url:'https://dragonrip.com/game/crafting.php', icon:'/game/images/bigicons/crafting.png'
             },
             'alchemy': {
-                label:'Alch',
-                url:'https://dragonrip.com/game/alchemy.php',
-                icon:'/game/images/bigicons/poto.png'
+                label:'Alch', url:'https://dragonrip.com/game/alchemy.php', icon:'/game/images/bigicons/poto.png'
             },
             'woodwork': {
-                label:'Wood<br>work',
-                url:'https://dragonrip.com/game/woodwork.php',
-                icon:'/game/images/bigicons/wood.png'
+                label:'Wood<br>work', url:'https://dragonrip.com/game/woodwork.php', icon:'/game/images/bigicons/wood.png'
             },
-
             'beastmastery': { 
-                label:'Pets',
-                url:'https://dragonrip.com/game/bmastery.php',
-                icon:'/game/images/bigicons/petb.png'
+                label:'Pets', url:'https://dragonrip.com/game/bmastery.php', icon:'/game/images/bigicons/petb.png'
             },
             'slayer': { 
-                label:'Slayer',
-                url:'https://dragonrip.com/game/slayer.php',
-                icon:'/game/images/bigicons/slayme.png'
+                label:'Slayer', url:'https://dragonrip.com/game/slayer.php', icon:'/game/images/bigicons/slayme.png'
             },
             'summoning': { 
-                label:'Summon',
-                url:'https://dragonrip.com/game/summoning.php',
-                icon:'/game/images/bigicons/sumo.png'
+                label:'Summon', url:'https://dragonrip.com/game/summoning.php', icon:'/game/images/bigicons/sumo.png'
             },
             'explo': { 
-                label:'Explore',
-                url:'https://dragonrip.com/game/explo.php',
-                icon:'/game/images/bigicons/explo.png'
+                label:'Explore', url:'https://dragonrip.com/game/explo.php', icon:'/game/images/bigicons/explo.png'
             },
             'magic': { 
-                label:'Magic',
-                url:'https://dragonrip.com/game/magic.php',
-                icon:'/game/images/bigicons/ench.png'
+                label:'Magic', url:'https://dragonrip.com/game/magic.php', icon:'/game/images/bigicons/ench.png'
             },
             'jewels': { 
-                label:'Jewels',
-                url:'https://dragonrip.com/game/jewel.php',
-                icon:'/game/images/bigicons/jewel.png'
-            },
+                label:'Jewels', url:'https://dragonrip.com/game/jewel.php', icon:'/game/images/bigicons/jewel.png'
+            }
         }
     }
 
@@ -190,20 +139,16 @@
                 inset 0px 0px 5px 3px rgba(0,0,0,0.99),
                 inset 0px 0px 0px 1px rgba(255, 255, 255, 0.15) 
             ;
-
-
         }
 
         .dragonrip-toolbar-separator {
             width: 20px;
             height:20px;
-            xheight:100%;
         }
 
         .dragonrip-toolbar-separator-large {
             width: 50px;
             height:50px;
-            xheight:100%;
             margin: 2px;
         }
 
@@ -285,7 +230,7 @@
 
     const smallerVanillaTopbarsCss = `
         div.player {
-            xborder:1px solid lime!important;
+
         }
         div.player > div.picture {
             width: 50px!important;
@@ -297,7 +242,6 @@
             background-size:contain!important;
             width: 50px!important;
             height:50px!important;
-
             max-height: 50px!important;
             min-height: 50px!important;
             display:flex;
@@ -317,9 +261,7 @@
             padding-top:0px!important;
         }
 
-
-        div.logo{
-            xborder:1px solid lime!important;
+        div.logo {
             height:68px;
             display:flex;
             align-items:center;
@@ -335,22 +277,12 @@
         }
     `;
 
-    
-
-    const log = console.log;
-
 
     const setItemHighlight = () => {
         const currentUrl = document.location.href;
         const dataItemIds = Object.getOwnPropertyNames(data.links);
 
-        for (let i=0; dataItemIds.length; i++) {
-            const itemId = dataItemIds[i];
-
-            if (itemId === '[]' || itemId === '|') {
-                continue;
-            }
-
+        for (const itemId of dataItemIds) {
             const itemUrl = data.links[itemId].url;
 
             if (currentUrl.includes(itemUrl)) {
@@ -363,18 +295,18 @@
                     }
                 }
             }
-       
         }
     }
     
 
     const createToolbarItem = id => {
+        // Toolbar items are link elements, create it
         const item = document.createElement('a');
         item.classList.add('dragonrip-toolbar-link-item');
         item.href = data.links[id].url;
         item.setAttribute('data-id', id);
 
-        // Create image elem
+        // Create image element
         const imageCont = document.createElement('div');
         imageCont.classList.add('image-cont');
         const image = document.createElement('img');
@@ -382,13 +314,15 @@
         image.src = data.links[id].icon;
         imageCont.append(image);
 
-        // Create text label
+        // Create text label element
         const label = document.createElement('div');
         label.classList.add('label');
         label.innerHTML = data.links[id].label;
-
+        
+        // Append image and text to link element
         item.append(imageCont);
         item.append(label);
+
         return item;
     }
 
@@ -405,6 +339,7 @@
     }
     
     const createToolbar = () => {
+        // Create toolbar container element
         const toolbarCont = document.createElement('div');
         toolbarCont.classList.add('dragonrip-toolbar-cont');
 
@@ -428,7 +363,6 @@
         }
     }
 
-
     // Wait for game UI to load, then insert toolbar elem
     const waitForElem = () => {
         const checkElem = setInterval( () => {
@@ -439,8 +373,7 @@
             }
         }, 5);
     }
-
-
+    
     const setCustomCss = str => {
         const styleElem = document.createElement("style");
         styleElem.textContent = str;
@@ -448,17 +381,9 @@
     }
 
 
-
     setCustomCss(toolbarCss);
-
-    if (settings.removeVanillaNavbar) { 
-        setCustomCss(removeVanillaNavbarCss); 
-    }
-
-    if (settings.smallerVanillaTopbars) { 
-        setCustomCss(smallerVanillaTopbarsCss); 
-    }
+    if (settings.removeVanillaNavbar) { setCustomCss(removeVanillaNavbarCss); }
+    if (settings.smallerVanillaTopbars) { setCustomCss(smallerVanillaTopbarsCss); }
     
-
     waitForElem();
 })();

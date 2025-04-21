@@ -5,8 +5,7 @@
 🐵 Tampermonkey userscript to show a shortcut toolbar for [the browser game Dragonrip](https://dragonrip.com/).
 The items shown, their order, and layout can be edited in the JS file.
 
-🍴 Available on GreasyFork: [greasyfork.org/en/scripts/532949-dragonrip-toolbar](https://greasyfork.org/en/scripts/532949-dragonrip-toolbar)
-
+🍴 Available on GreasyFork: [greasyfork.org/en/scripts/532949-dragonrip-toolbar](https://greasyfork.org/en/scripts/533554-dragonrip-server-time)
 ## 🛠 Customizing the toolbar
 To change the toolbar contents, edit the <code>toolbarItems</code> global array. 
 See the <code>toolbarItems</code> in the code to see how the keywords are used to create the toolbar.
@@ -15,7 +14,7 @@ Possible keywords for toolbar items:
 - <code>home, bank, prof, shop, combat, market, quests, events, dungeon</code>
 - <code>mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery</code>
 - <code>[]</code> adds an empty square slot
-- <code>|</code> adds a shorter separater space
+- <code>|</code> adds a shorter separator space
 
 
 ## ⚙️ Other settings
