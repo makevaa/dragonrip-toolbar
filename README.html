@@ -133,8 +133,25 @@
         </head>
         <body class="vscode-body vscode-dark">
             <h1 id="dragonrip-toolbar">Dragonrip Toolbar</h1>
-<p>Tampermonkey userscript to show a shortcut toolbar for the browser game <a href="https://dragonrip.com/">Dragonrip</a>. The items shown, their order, and layout can be edited in the js file.</p>
-<p>Available on GreasyFork: <a href="https://greasyfork.org/en/scripts/532949-dragonrip-toolbar">greasyfork.org/en/scripts/532949-dragonrip-toolbar</a></p>
+<p>🐵 Tampermonkey userscript to show a shortcut toolbar for the browser game <a href="https://dragonrip.com/">Dragonrip</a>.
+The items shown, their order, and layout can be edited in the js file.</p>
+<p>🍴 Available on GreasyFork: <a href="https://greasyfork.org/en/scripts/532949-dragonrip-toolbar">greasyfork.org/en/scripts/532949-dragonrip-toolbar</a></p>
+<h2 id="customizing-the-toolbar">Customizing the toolbar</h2>
+<p>To change the toolbar contents, edit the <code>toolbarItems</code> global array.
+See the <code>toolbarItems</code> in the code to see how the keywords are used to create the toolbar.</p>
+<p>Possible keywords for toolbar items:</p>
+<ul>
+<li><code>home, bank, prof, shop, combat, market, quests, events, dungeon</code></li>
+<li><code>mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery</code></li>
+<li><code>[]</code> adds an empty square slot</li>
+<li><code>|</code> adds a shorter separater space</li>
+</ul>
+<h2 id="other-settings">Other settings</h2>
+<p>Global object <code>settings</code> has 2 properties for minor layout tweaks:</p>
+<ul>
+<li><code>removeVanillaNavbar</code>: remove the game's vanilla navbar element</li>
+<li><code>smallerVanillaTopbars</code>: make the player info and game logo boxes more compact by reducing height</li>
+</ul>
 <h2 id="preview">Preview</h2>
 <p><img src="https://i.imgur.com/X8V0id8.png" alt="Dragonrip toolbar preview" title="Dragonrip toolbar preview"></p>
 

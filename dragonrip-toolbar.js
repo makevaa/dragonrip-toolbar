@@ -13,28 +13,20 @@
 
 (() => {
     'use strict';
-    /* 
-        Items in the tool bar.
-        Items created in 2 rows.
+    /*  Items in the toolbar.
         The order and layout can be customized with empty slots (brackets []) or smaller spearator spaces (pipe |).
         Possible items: 
             - home, bank, prof, shop, combat, market, quests, events, dungeon
-            - mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery, slayer, explo, magic
+            - mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery
             - | = separator space
-            - [] = large spearator space
-
-    */
+            - [] = large spearator space */
     const toolbarItems = [
             'home', 'bank', 'prof','shop', 'combat', '|', 
-
             'mining', 'smithing',  'fishing',  'hunter', 'herbs', 'cooking', 
             'crafting', 'alchemy', 'woodwork', 'beastmastery', 'summoning', 'jewels', 
-            
             '[]','market', 'quests', 'dungeon','events',
-
             '|','[]','[]','[]','[]','[]','[]','[]','[]','[]',
             'slayer', 'explo','magic',
-
     ]
 
     const settings = {
