@@ -342,18 +342,20 @@
 
     const setItemHighlight = () => {
         const currentUrl = document.location.href;
-        log(currentUrl)
-
         const dataItemIds = Object.getOwnPropertyNames(data.links);
 
         for (let i=0; dataItemIds.length; i++) {
             const itemId = dataItemIds[i];
+
+            if (itemId === '[]' || itemId === '|') {
+                continue;
+            }
+
             const itemUrl = data.links[itemId].url;
 
             if (currentUrl.includes(itemUrl)) {
                 //Find item in HTML and add highlight class
                 const domItems = document.querySelectorAll('.dragonrip-toolbar-cont > .dragonrip-toolbar-link-item');
-
                 for (const domItem of domItems) {
                     const domItemId = domItem.getAttribute('data-id');
                     if (domItemId === itemId) {
