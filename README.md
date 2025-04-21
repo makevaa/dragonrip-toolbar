@@ -1,4 +1,6 @@
 # Dragonrip Toolbar 
+![Dragonrip toolbar compact preview](https://i.imgur.com/KLC9bxv.png "Dragonrip toolbar compact preview")
+
 
 🐵 Tampermonkey userscript to show a shortcut toolbar for [the browser game Dragonrip](https://dragonrip.com/).
 The items shown, their order, and layout can be edited in the JS file.
