@@ -2,8 +2,7 @@
 ![Dragonrip toolbar compact preview](https://i.imgur.com/KLC9bxv.png "Dragonrip toolbar compact preview")
 
 
-🐵 Tampermonkey userscript to show a shortcut toolbar for [the browser game Dragonrip](https://dragonrip.com/).
-The items shown, their order, and layout can be edited in the JS file.
+🐵 [Tampermonkey](https://www.tampermonkey.net/) user script to show a shortcut toolbar for the browser game [Dragonrip](https://dragonrip.com/).<br>Which items to show, their order, and layout can be edited manually in the JS file.
 
 🍴 Available on GreasyFork: [greasyfork.org/en/scripts/532949-dragonrip-toolbar](https://greasyfork.org/en/scripts/533554-dragonrip-server-time)
 ## 🛠 Customizing the toolbar
@@ -22,7 +21,7 @@ Global object <code>settings</code> has 2 properties for minor layout tweaks:
 - <code>removeVanillaNavbar</code>: remove the game's vanilla navbar element
 - <code>smallerVanillaTopbars</code>: make the player info and game logo boxes more compact by reducing height
 
-## Preview
+## 💎 Preview
 ![Dragonrip toolbar preview](https://i.imgur.com/X8V0id8.png "Dragonrip toolbar preview")
 
 
