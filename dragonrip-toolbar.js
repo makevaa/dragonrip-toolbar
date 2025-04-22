@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dragonrip Toolbar
 // @namespace    http://tampermonkey.net/
-// @version      1.0.13
+// @version      1.0.14
 // @description  Shortcut toolbar for Dragonrip.com
 // @author       Kronos1
 // @match         *://*.dragonrip.com/*
@@ -233,7 +233,7 @@
 
     const smallerVanillaTopbarsCss = `
         div.player {
-
+            height:68px;
         }
         div.player > div.picture {
             width: 50px!important;
