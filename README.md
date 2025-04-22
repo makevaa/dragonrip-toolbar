@@ -4,7 +4,7 @@
 
 🐵 [Tampermonkey](https://www.tampermonkey.net/) user script to show a shortcut toolbar for the browser game [Dragonrip](https://dragonrip.com/).<br>Which items to show, their order, and layout can be edited manually in the JS file.
 
-🍴 Available on GreasyFork: [greasyfork.org/en/scripts/532949-dragonrip-toolbar](https://github.com/makevaa/dragonrip-toolbar)
+🍴 Available on GreasyFork: [greasyfork.org/en/scripts/532949-dragonrip-toolbar](https://greasyfork.org/en/scripts/532949-dragonrip-toolbar)
 ## 🛠 Customizing the toolbar
 To change the toolbar contents, edit the <code>toolbarItems</code> global array. 
 See the <code>toolbarItems</code> in the code to see how the keywords are used to create the toolbar.
