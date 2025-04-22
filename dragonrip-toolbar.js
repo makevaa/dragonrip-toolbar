@@ -115,7 +115,7 @@
 
 
     const toolbarCss = `
-        .dragonrip-toolbar-cont > * {
+        .dragonrip-toolbar-cont * {
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -123,6 +123,9 @@
         }
 
         .dragonrip-toolbar-cont {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
             border-color: rgba(255,255,255,0.15);
             border-width:0px 1px;
             border-style:solid;
