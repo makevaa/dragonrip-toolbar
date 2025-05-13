@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dragonrip Toolbar
 // @namespace    http://tampermonkey.net/
-// @version      1.0.14
+// @version      1.0.17
 // @description  Shortcut toolbar for Dragonrip.com
 // @author       Kronos1
 // @match         *://*.dragonrip.com/*
@@ -16,28 +16,52 @@
     /*  Items in the toolbar.
         The order and layout can be customized with empty slots (brackets []) or smaller spearator spaces (pipe |).
         Possible items: 
-            - home, bank, prof, shop, combat, market, quests, events, dungeon
-            - mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery
-            - | = separator space
-            - [] = large spearator space 
+            • General links: home, bank, prof, shop, combat, market, quests, events, dungeon
+            • Skill links: mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery
+            • Actions:
+                - pet_explo_end_and_start (complete and start pet exploration)
+                - pet_training_end_and_start (complete and start pet training, customize settings in settings.pets object)
+            • | = separator space
+            • [] = large spearator space 
     */
     const toolbarItems = [
-            'home', 'bank', 'prof','shop', 'combat', '|', 
-            'mining', 'smithing',  'fishing',  'hunter', 'herbs', 'cooking', 
-            'crafting', 'alchemy', 'woodwork', 'beastmastery', 'summoning', 'jewels', 
-            '[]','market', 'quests', 'dungeon','events',
-            '|','[]','[]','[]','[]','[]','[]','[]','[]','[]',
-            'slayer', 'explo','magic',
+            'home', 'bank', 'shop', 'combat', 
+            '|', '[]','[]', 
+            'mining', 'smithing',  'fishing',  'hunter', 'herbs', 'cooking', 'crafting',  
+            '[]','[]',
+            'pet_explo_end_and_start','pet_training_end_and_start',
+            'market', 'quests', 'dungeon','events',
+            '|','[]',
+            'alchemy','woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo','magic',
     ]
 
     const settings = {
         removeVanillaNavbar: true, // Remove game's original navbar element
         smallerVanillaTopbars: true, // Make the player and game logo boxes smaller height
+
+        pets: {
+            slotToTrain: 1, // Which pet slot to train
+            trainingToUse: 2, // Which training to use, eg. slot 2 is "obedience"
+            trainingImage: "/game/images/peti/2.png",
+            startTrainingUrl:-1,// set automatically
+    
+            explorationTime:60, // 1-60 minutes
+            explorationImage:'/game/images/peti/8.png',
+        },
     }
+
+
     
     // Data for link items
     const data = {
         links: {
+            'pet_explo_end_and_start': { 
+                label:'Re-explore', icon:'', runFunction:'restartExploration',
+            },
+            'pet_training_end_and_start': { 
+                label:'Re-train', icon:'', runFunction:"restartTraining",
+            },
+
             'home': { 
                 label:'Home', url:'https://dragonrip.com/game/play.php', icon:'https://i.imgur.com/Vn0ku7D.png'
             },
@@ -132,6 +156,7 @@
             width:100%;
             height:120px; 
             display:flex;
+            xflex-direction:column;
             flex-wrap:wrap;
             align-items:center;
             justify-content:start;
@@ -162,8 +187,9 @@
             aspect-ratio:1/1;
             margin: 2px;
             display:flex;
+            flex-direction:column;
             align-items: end;
-            justify-content: center;
+            justify-content: space-between;
             cursor:pointer;
             border-style: solid;
             border-image-source: url('https://i.imgur.com/c7Oeu0F.png');
@@ -223,6 +249,25 @@
             font-family:consolas,monospace;
             line-height:0.8;
         }
+         .dragonrip-toolbar-link-item > .action-label {
+            width:100%;
+            padding:1px 0px 3px 0px;
+            text-align:center;
+            color:lime;
+            text-shadow: 
+                0px 0px 3px black,
+                0px 0px 3px black,
+                0px 0px 3px black,
+                0px 0px 3px black,
+                0px 0px 3px black,
+                0px 0px 3px black,
+                0px 0px 3px black
+            ;
+            z-index:1;
+            font-size:0.7em;
+            font-family:consolas,monospace;
+            line-height:0.8;
+        }
     `;
 
     const removeVanillaNavbarCss = `
@@ -241,7 +286,6 @@
             margin-right:30px!important;
         }
         div.player > div.picture > a > div.kovsd {
-            xborder:1px solid lime!important;
             background-size:contain!important;
             width: 50px!important;
             height:50px!important;
@@ -256,7 +300,7 @@
             width:100%!important;
             margin-top: 0px!important;
             color:lime!important;
-            color:#b133ff!important;
+            color:#6633ff!important;
             font-family:consolas,monospace;
         }
 
@@ -280,6 +324,73 @@
         }
     `;
 
+    const log = console.log;
+
+    // Set pet exploration and training urls in data based settings
+    const setPetActionData = () => {
+        const petTrainingStartUrl = `https://dragonrip.com/game/bmaster.php?go=10&sl=${settings.pets.slotToTrain}&tr=${settings.pets.trainingToUse}`;
+
+        data.links["pet_training_end_and_start"].icon = settings.pets.trainingImage;
+        data.links["pet_explo_end_and_start"].icon = settings.pets.explorationImage;
+
+        settings.pets.startTrainingUrl = petTrainingStartUrl;
+    }
+
+    const setExplorationTime = () => {
+        const fieldElem = document.querySelector('body > div.into > div > table:nth-child(7) > tbody > tr > td:nth-child(2) > form > table > tbody > tr > #market > input[type=number]');
+
+        if (fieldElem !== undefined && fieldElem !== null) {
+            fieldElem.value = settings.pets.explorationTime;
+        }
+    }
+
+    // Send POST request with the training time to game server
+    const startExploration = () => {
+        fetch("https://dragonrip.com/game/explo.php?go=1", {
+            method: "POST",
+            body: `time=${settings.pets.explorationTime}`,
+            headers: {
+              "Content-type": "application/x-www-form-urlencoded",
+              "Cookie": "PHPSESSID=e9c8092265e0016efff70fa80f043938",
+            }
+        }) 
+        //.then((res) => log(res) )
+        .then((res) => goToUrl(res.url) )
+    }
+
+    // Complete exploration, then start it again
+    const restartExploration = () => {
+        sendGetRequest('https://dragonrip.com/game/explo.php?go=4', startExploration);
+    }
+
+    // Complete training, then start it again
+    const restartTraining = () => {
+        sendGetRequest('https://dragonrip.com/game/bmaster.php', startTraining);
+    }
+
+    // Go to trainig url to start training
+    const startTraining = () => {
+        goToUrl(settings.pets.startTrainingUrl);
+    }
+
+    const goToUrl = url => {
+        window.location.href = url;
+    }
+
+    const sendGetRequest = (reqUrl, callback) => {
+        const req = new XMLHttpRequest();
+        const requestUrl = reqUrl;
+        
+        req.onreadystatechange = function() { 
+            if (req.readyState == 4 && req.status == 200) {
+                //processRequest(req.responseText);
+                callback(); 
+            }
+        }
+        req.open("GET", requestUrl, false); // true for asynchronous     
+        req.send(null);      
+    }
+
 
     const setItemHighlight = () => {
         const currentUrl = document.location.href;
@@ -288,7 +399,7 @@
         for (const itemId of dataItemIds) {
             const itemUrl = data.links[itemId].url;
 
-            if (currentUrl.includes(itemUrl)) {
+            if (itemUrl !== undefined && currentUrl.includes(itemUrl)) {
                 //Find item in HTML and add highlight class
                 const domItems = document.querySelectorAll('.dragonrip-toolbar-cont > .dragonrip-toolbar-link-item');
                 for (const domItem of domItems) {
@@ -306,7 +417,23 @@
         // Toolbar items are link elements, create it
         const item = document.createElement('a');
         item.classList.add('dragonrip-toolbar-link-item');
-        item.href = data.links[id].url;
+
+        // Create action label element
+        const actionLabel = document.createElement('div');
+        actionLabel.classList.add('action-label');
+
+
+        if (data.links[id].hasOwnProperty("runFunction")) {
+            item.addEventListener("click", e => {
+                eval(data.links[id].runFunction).call()
+            }); 
+            actionLabel.innerHTML ='Action';
+
+        } else {
+            item.href = data.links[id].url;
+        }
+
+  
         item.setAttribute('data-id', id);
 
         // Create image element
@@ -324,6 +451,11 @@
         
         // Append image and text to link element
         item.append(imageCont);
+
+        if (actionLabel !== undefined && actionLabel !== null) {
+            item.append(actionLabel);
+        }
+
         item.append(label);
 
         return item;
@@ -373,6 +505,7 @@
                 clearInterval(checkElem); 
                 createToolbar();
                 setItemHighlight();
+                setExplorationTime();
             }
         }, 5);
     }
@@ -384,6 +517,7 @@
     }
 
 
+    setPetActionData();
     setCustomCss(toolbarCss);
     if (settings.removeVanillaNavbar) { setCustomCss(removeVanillaNavbarCss); }
     if (settings.smallerVanillaTopbars) { setCustomCss(smallerVanillaTopbarsCss); }
