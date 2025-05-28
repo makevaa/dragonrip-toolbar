@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dragonrip Toolbar
 // @namespace    http://tampermonkey.net/
-// @version      1.0.17
+// @version      1.0.18
 // @description  Shortcut toolbar for Dragonrip.com
 // @author       Kronos1
 // @match         *://*.dragonrip.com/*
@@ -13,26 +13,18 @@
 
 (() => {
     'use strict';
-    /*  Items in the toolbar.
-        The order and layout can be customized with empty slots (brackets []) or smaller spearator spaces (pipe |).
-        Possible items: 
-            • General links: home, bank, prof, shop, combat, market, quests, events, dungeon
-            • Skill links: mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery
-            • Actions:
-                - pet_explo_end_and_start (complete and start pet exploration)
-                - pet_training_end_and_start (complete and start pet training, customize settings in settings.pets object)
-            • | = separator space
-            • [] = large spearator space 
+    /*  
     */
     const toolbarItems = [
             'home', 'bank', 'shop', 'combat', 
             '|', '[]','[]', 
             'mining', 'smithing',  'fishing',  'hunter', 'herbs', 'cooking', 'crafting',  
-            '[]','[]',
-            'pet_explo_end_and_start','pet_training_end_and_start',
+            '[]', '[]', '[]',
+            'pet_explo_end_and_start',
             'market', 'quests', 'dungeon','events',
             '|','[]',
             'alchemy','woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo','magic',
+            '[]', '[]', '[]', 'pet_training_end_and_start',
     ]
 
     const settings = {
@@ -41,9 +33,9 @@
 
         pets: {
             slotToTrain: 1, // Which pet slot to train
-            trainingToUse: 2, // Which training to use, eg. slot 2 is "obedience"
+            trainingToUse: 3, // Which training to use, eg. slot 2 is "obedience"
             trainingImage: "/game/images/peti/2.png",
-            startTrainingUrl:-1,// set automatically
+            startTrainingUrl:-1, // set automatically
     
             explorationTime:60, // 1-60 minutes
             explorationImage:'/game/images/peti/8.png',
@@ -204,7 +196,7 @@
         }
 
         .dragonrip-toolbar-link-item:hover {
-            background-color:#0b0b2d;
+            background-color: #0b0b2d;
             outline: 1px solid #00c867;
         }
 
@@ -234,7 +226,7 @@
             width:100%;
             padding:1px 0px 3px 0px;
             text-align:center;
-            color:white;
+            color: white;
             text-shadow: 
                 0px 0px 3px black,
                 0px 0px 3px black,
@@ -299,8 +291,8 @@
         div.player > div.picture > a > div.kovsd > span.amoutina {
             width:100%!important;
             margin-top: 0px!important;
-            color:lime!important;
-            color:#6633ff!important;
+            color: lime!important;
+            color:rgb(111, 111, 255)!important;
             font-family:consolas,monospace;
         }
 
