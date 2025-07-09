@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dragonrip Toolbar
 // @namespace    http://tampermonkey.net/
-// @version      1.0.19
+// @version      1.0.20
 // @description  Shortcut toolbar for Dragonrip.com
 // @author       Kronos1
 // @match         *://*.dragonrip.com/*
@@ -10,21 +10,13 @@
 // @license      GPLv3 
 // ==/UserScript==
 
-
 (() => {
     'use strict';
     /*  
     */
     const toolbarItems = [
-            'home', 'bank', 'shop', 'combat', 
-            '|', '[]','[]', 
-            'mining', 'smithing', 'fishing', 'hunter', 'herbs', 'cooking', 'crafting',  
-            '[]', '[]', '[]',
-            'pet_explo_end_and_start',
-            'market', 'quests', 'dungeon','events', 'clan',
-            '|',
-            'alchemy','woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo','magic',
-            '[]', '[]', '[]', 'pet_training_end_and_start',
+            'home', 'bank', 'shop', 'market', 'combat', '[]', '|',  'mining', 'smithing', 'fishing', 'hunter', 'herbs', 'cooking', 'crafting', '[]','[]','[]', 'pet_explo_end_and_start',
+            'daily_quest', 'quests', 'dungeon','events', 'clan', '[]', '|', 'alchemy', 'woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo', 'magic', '[]', '[]', 'pet_training_end_and_start'
     ]
 
     const settings = {
@@ -83,6 +75,9 @@
             },
             'clan': { 
                 label:'Clan', url:'https://dragonrip.com/game/clan.php', icon:'/game/images/icons/clan.png'
+            },
+            'daily_quest': { 
+                label:'Daily quest', url:'https://dragonrip.com/game/dquest.php', icon:'/game/images/imci/quest.png'
             },
             'mining': {
                 label:'Mining', url:'https://dragonrip.com/game/miningter.php', icon:'/game/images/bigicons/pick.png'
