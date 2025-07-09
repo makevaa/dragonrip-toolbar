@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dragonrip Toolbar
 // @namespace    http://tampermonkey.net/
-// @version      1.0.18
+// @version      1.0.19
 // @description  Shortcut toolbar for Dragonrip.com
 // @author       Kronos1
 // @match         *://*.dragonrip.com/*
@@ -18,11 +18,11 @@
     const toolbarItems = [
             'home', 'bank', 'shop', 'combat', 
             '|', '[]','[]', 
-            'mining', 'smithing',  'fishing',  'hunter', 'herbs', 'cooking', 'crafting',  
+            'mining', 'smithing', 'fishing', 'hunter', 'herbs', 'cooking', 'crafting',  
             '[]', '[]', '[]',
             'pet_explo_end_and_start',
-            'market', 'quests', 'dungeon','events',
-            '|','[]',
+            'market', 'quests', 'dungeon','events', 'clan',
+            '|',
             'alchemy','woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo','magic',
             '[]', '[]', '[]', 'pet_training_end_and_start',
     ]
@@ -33,7 +33,7 @@
 
         pets: {
             slotToTrain: 1, // Which pet slot to train
-            trainingToUse: 3, // Which training to use, eg. slot 2 is "obedience"
+            trainingToUse: 4, // Which training to use, eg. slot 2 is the 2nd training ("obedience")
             trainingImage: "/game/images/peti/2.png",
             startTrainingUrl:-1, // set automatically
     
@@ -80,6 +80,9 @@
             },
             'dungeon': { 
                 label:'Dungeon', url:'https://dragonrip.com/game/dungeon.php', icon:'/game/images/icons/dung.png'
+            },
+            'clan': { 
+                label:'Clan', url:'https://dragonrip.com/game/clan.php', icon:'/game/images/icons/clan.png'
             },
             'mining': {
                 label:'Mining', url:'https://dragonrip.com/game/miningter.php', icon:'/game/images/bigicons/pick.png'
