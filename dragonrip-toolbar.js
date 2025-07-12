@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dragonrip Toolbar
 // @namespace    http://tampermonkey.net/
-// @version      1.0.20
+// @version      1.0.21
 // @description  Shortcut toolbar for Dragonrip.com
 // @author       Kronos1
 // @match         *://*.dragonrip.com/*
@@ -30,7 +30,7 @@
             startTrainingUrl:-1, // set automatically
     
             explorationTime:60, // 1-60 minutes
-            explorationImage:'/game/images/peti/8.png',
+            explorationImage:'/game/images/peti/12.png',
         },
     }
 
