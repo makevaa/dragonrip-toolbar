@@ -15,8 +15,8 @@
     /*  
     */
     const toolbarItems = [
-            'home', 'bank', 'shop', 'market', 'combat', '[]', '|',  'mining', 'smithing', 'fishing', 'hunter', 'herbs', 'cooking', 'crafting', '[]','[]','enter_raffles', 'pet_explo_end_and_start',
-            'daily_quest', 'quests', 'dungeon','events', 'clan', 'ruins', '|', 'alchemy', 'woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo', 'magic', '[]', '[]', 'pet_training_end_and_start'
+            'home', 'bank', 'shop', 'market', 'combat', '[]', '|',  'mining', 'smithing', 'fishing', 'hunter', 'herbs', 'cooking', 'crafting', '[]','[]', 'raffles', 'pet_explo_end_and_start',
+            'daily_quest', 'quests', 'dungeon','events', 'clan', 'ruins', '|', 'alchemy', 'woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo', 'magic', '[]', 'enter_raffles', 'pet_training_end_and_start'
     ]
 
     const settings = {
@@ -37,11 +37,11 @@
         raffles: {
             rafflesToEnter: [ 'daily1', 'daily2', 'daily3', 'daily4', 'weekly1' ],
             urls: {
-                daily1:'',
-                daily2:'',
-                daily3:'',
-                daily4:'',
-                weekly1:'',
+                daily1:'https://dragonrip.com/game/raffle.php?go=6',
+                daily2:'https://dragonrip.com/game/raffle.php?go=7',
+                daily3:'https://dragonrip.com/game/raffle.php?go=8',
+                daily4:'https://dragonrip.com/game/raffle.php?go=9',
+                weekly1:'https://dragonrip.com/game/raffle.php?go=1',
             }
         }
     }
@@ -96,6 +96,9 @@
             },
             'ruins': { 
                 label:'Ruins', url:'https://dragonrip.com/game/ruins.php', icon:'/game/images/icons/ruins.png'
+            },
+            'raffles': { 
+                label:'Raffles', url:'https://dragonrip.com/game/mini.php', icon:'/game/images/itemaa/gembag.png'
             },
             'mining': {
                 label:'Mining', url:'https://dragonrip.com/game/miningter.php', icon:'/game/images/bigicons/pick.png'
@@ -235,7 +238,7 @@
         .dragonrip-toolbar-link-item > .image-cont > .image {
             height:70%;
             aspect-ratio:1/1;
-            filter: drop-shadow(0px 0px 2px aqua) drop-shadow(0px 0px 1px rgba(255,255,255, 0.0));
+            filter: drop-shadow(0px 0px 2px aqua) drop-shadow(0px 0px 3px rgba(0, 0 , 0, 1.0));
         }
 
         .dragonrip-toolbar-link-item > .label {
@@ -333,6 +336,7 @@
     `;
 
     const log = console.log;
+    const error = console.error;
 
     // Set pet exploration and training urls in data based settings
     const setPetActionData = () => {
@@ -384,8 +388,6 @@
 
     // Enter all raffles (based on data in settings)
     const enterRaffles = async () => {
-        log('enterRaffles');
-
         const raffleUrls = [];
 
         // Populate raffleUrls with data from settings
@@ -393,13 +395,13 @@
             raffleUrls.push(settings.raffles.urls[raffleName]);
         }
 
+
         // Send GET requests for each raffle url to enter the raffles
         for (const url of raffleUrls) {
-            const res = await sendSilentGetRequest(url);
-            log(res)
+            await fetchUrl(url);
         }
 
-
+        goToUrl('https://dragonrip.com/game/mini.php');
     }
 
 
@@ -424,21 +426,20 @@
     }
 
 
-    // GET request without a callback
-    const sendSilentGetRequest = (reqUrl) => {
-        const req = new XMLHttpRequest();
-        const requestUrl = reqUrl;
-        
-        req.onreadystatechange = function() { 
-            if (req.readyState == 4 && req.status == 200) {
-                //processRequest(req.responseText);
-                //callback(); 
-                return req.responseText;
+   const fetchUrl = async url => {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) {
+                throw new Error(`Response status: ${res.status}`);
             }
+
+            //const json = await res.json();
+            log(res);
+        } catch (error) {
+            error(error.message);
         }
-        req.open("GET", requestUrl, false); // true for asynchronous     
-        req.send(null);      
     }
+
 
 
     const setItemHighlight = () => {

@@ -13,7 +13,7 @@ See the <code>toolbarItems</code> in the code to see how the keywords are used t
 
 
 #### Normal game links
-- <code>home, bank, prof, shop, combat, market, quests, daily_quest, events, dungeon, clan, ruins</code>
+- <code>home, bank, prof, shop, combat, market, quests, daily_quest, events, dungeon, clan, ruins, raffles</code>
 - <code>mining, smithing, jewels, fishing, hunter, herbs, cooking, crafting, alchemy, slayer, summoning, explo, woodwork, magic, beastmastery</code>
   
 #### Spacer and separator
