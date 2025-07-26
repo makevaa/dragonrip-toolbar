@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Dragonrip Toolbar
 // @namespace    http://tampermonkey.net/
-// @version      1.0.21
+// @version      1.0.22
 // @description  Shortcut toolbar for Dragonrip.com
 // @author       Kronos1
 // @match         *://*.dragonrip.com/*
@@ -15,8 +15,8 @@
     /*  
     */
     const toolbarItems = [
-            'home', 'bank', 'shop', 'market', 'combat', '[]', '|',  'mining', 'smithing', 'fishing', 'hunter', 'herbs', 'cooking', 'crafting', '[]','[]','[]', 'pet_explo_end_and_start',
-            'daily_quest', 'quests', 'dungeon','events', 'clan', '[]', '|', 'alchemy', 'woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo', 'magic', '[]', '[]', 'pet_training_end_and_start'
+            'home', 'bank', 'shop', 'market', 'combat', '[]', '|',  'mining', 'smithing', 'fishing', 'hunter', 'herbs', 'cooking', 'crafting', '[]','[]','enter_raffles', 'pet_explo_end_and_start',
+            'daily_quest', 'quests', 'dungeon','events', 'clan', 'ruins', '|', 'alchemy', 'woodwork', 'beastmastery', 'summoning', 'jewels', 'slayer', 'explo', 'magic', '[]', '[]', 'pet_training_end_and_start'
     ]
 
     const settings = {
@@ -32,6 +32,18 @@
             explorationTime:60, // 1-60 minutes
             explorationImage:'/game/images/peti/12.png',
         },
+
+        // Enter daily/weekly/monthly raffles with a single button
+        raffles: {
+            rafflesToEnter: [ 'daily1', 'daily2', 'daily3', 'daily4', 'weekly1' ],
+            urls: {
+                daily1:'',
+                daily2:'',
+                daily3:'',
+                daily4:'',
+                weekly1:'',
+            }
+        }
     }
 
 
@@ -44,6 +56,9 @@
             },
             'pet_training_end_and_start': { 
                 label:'Re-train', icon:'', runFunction:"restartTraining",
+            },
+            'enter_raffles': { 
+                label:'Enter raffles', icon:'/game/images/itemaa/gembag.png', runFunction:"enterRaffles",
             },
 
             'home': { 
@@ -78,6 +93,9 @@
             },
             'daily_quest': { 
                 label:'Daily quest', url:'https://dragonrip.com/game/dquest.php', icon:'/game/images/imci/quest.png'
+            },
+            'ruins': { 
+                label:'Ruins', url:'https://dragonrip.com/game/ruins.php', icon:'/game/images/icons/ruins.png'
             },
             'mining': {
                 label:'Mining', url:'https://dragonrip.com/game/miningter.php', icon:'/game/images/bigicons/pick.png'
@@ -358,15 +376,39 @@
         sendGetRequest('https://dragonrip.com/game/bmaster.php', startTraining);
     }
 
-    // Go to trainig url to start training
+    // Go to training url to start training
     const startTraining = () => {
         goToUrl(settings.pets.startTrainingUrl);
     }
+
+
+    // Enter all raffles (based on data in settings)
+    const enterRaffles = async () => {
+        log('enterRaffles');
+
+        const raffleUrls = [];
+
+        // Populate raffleUrls with data from settings
+        for (const raffleName of settings.raffles.rafflesToEnter) {
+            raffleUrls.push(settings.raffles.urls[raffleName]);
+        }
+
+        // Send GET requests for each raffle url to enter the raffles
+        for (const url of raffleUrls) {
+            const res = await sendSilentGetRequest(url);
+            log(res)
+        }
+
+
+    }
+
 
     const goToUrl = url => {
         window.location.href = url;
     }
 
+
+    // GET request with a callback function
     const sendGetRequest = (reqUrl, callback) => {
         const req = new XMLHttpRequest();
         const requestUrl = reqUrl;
@@ -375,6 +417,23 @@
             if (req.readyState == 4 && req.status == 200) {
                 //processRequest(req.responseText);
                 callback(); 
+            }
+        }
+        req.open("GET", requestUrl, false); // true for asynchronous     
+        req.send(null);      
+    }
+
+
+    // GET request without a callback
+    const sendSilentGetRequest = (reqUrl) => {
+        const req = new XMLHttpRequest();
+        const requestUrl = reqUrl;
+        
+        req.onreadystatechange = function() { 
+            if (req.readyState == 4 && req.status == 200) {
+                //processRequest(req.responseText);
+                //callback(); 
+                return req.responseText;
             }
         }
         req.open("GET", requestUrl, false); // true for asynchronous     
