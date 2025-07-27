@@ -37,7 +37,7 @@
         raffles: {
             rafflesToEnter: [ 'daily1', 'daily2', 'daily3', 'daily4', 'weekly1' ],
             urls: {
-                daily1:'https://dragonrip.com/game/raffle.php?go=6',
+                daily1:'https://dragonrip.com/game/raffle.php',
                 daily2:'https://dragonrip.com/game/raffle.php?go=7',
                 daily3:'https://dragonrip.com/game/raffle.php?go=8',
                 daily4:'https://dragonrip.com/game/raffle.php?go=9',
@@ -238,7 +238,14 @@
         .dragonrip-toolbar-link-item > .image-cont > .image {
             height:70%;
             aspect-ratio:1/1;
-            filter: drop-shadow(0px 0px 2px aqua) drop-shadow(0px 0px 3px rgba(0, 0 , 0, 1.0));
+            filter: drop-shadow(0px 0px 2px aqua) drop-shadow(0px 0px 3px rgba(0, 0 , 0, 0.0));
+        }
+
+        .dragonrip-toolbar-link-item > .image-cont > .image:after {
+            xpositon:absolute;
+            width:100%;
+            height:100%;
+            background-color:red;
         }
 
         .dragonrip-toolbar-link-item > .label {
