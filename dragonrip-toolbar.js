@@ -33,13 +33,13 @@
             explorationImage:'/game/images/peti/12.png',
         },
 
-        // Enter daily/weekly/monthly raffles with a single button
+        // Enter daily/weekly/monthly raffles with a single button (with enough Gold Pieces in inv)
         raffles: {
             rafflesToEnter: [ 'daily1', 'daily2', 'daily3', 'daily4', 'weekly1' ],
             urls: {
                 daily1:'https://dragonrip.com/game/raffle.php',
-                daily2:'https://dragonrip.com/game/raffle.php?go=7',
-                daily3:'https://dragonrip.com/game/raffle.php?go=8',
+                daily2:'https://dragonrip.com/game/raffle.php?go=6',
+                daily3:'https://dragonrip.com/game/raffle.php?go=7',
                 daily4:'https://dragonrip.com/game/raffle.php?go=9',
                 weekly1:'https://dragonrip.com/game/raffle.php?go=1',
             }
