@@ -21,7 +21,6 @@
 
     const settings = {
         removeVanillaNavbar: true, // Remove game's original navbar element
-        smallerVanillaTopbars: true, // Make the player and game logo boxes smaller height
 
         pets: {
             slotToTrain: 1, // Which pet slot to train
@@ -294,53 +293,6 @@
         }
     `;
 
-    const smallerVanillaTopbarsCss = `
-        div.player {
-            height:68px;
-        }
-        div.player > div.picture {
-            width: 50px!important;
-            height:50px!important;
-            margin-right:30px!important;
-        }
-        div.player > div.picture > a > div.kovsd {
-            background-size:contain!important;
-            width: 50px!important;
-            height:50px!important;
-            max-height: 50px!important;
-            min-height: 50px!important;
-            display:flex;
-            flex-direction:column;
-            justify-content: end;
-        }
-
-        div.player > div.picture > a > div.kovsd > span.amoutina {
-            width:100%!important;
-            margin-top: 0px!important;
-            color: lime!important;
-            color:rgb(111, 111, 255)!important;
-            font-family:consolas,monospace;
-        }
-
-        div.player > div.bar {
-            padding-top:0px!important;
-        }
-
-        div.logo {
-            height:68px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-
-        div.logo > br {
-            height:0px!important;
-        }
-
-        div.logo > img {
-            height:80%;
-        }
-    `;
 
     const log = console.log;
     const error = console.error;
@@ -577,7 +529,7 @@
     setPetActionData();
     setCustomCss(toolbarCss);
     if (settings.removeVanillaNavbar) { setCustomCss(removeVanillaNavbarCss); }
-    if (settings.smallerVanillaTopbars) { setCustomCss(smallerVanillaTopbarsCss); }
+  
     
     waitForElem();
 })();
