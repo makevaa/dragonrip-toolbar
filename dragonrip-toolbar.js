@@ -23,9 +23,9 @@
         removeVanillaNavbar: true, // Remove game's original navbar element
 
         pets: {
-            slotToTrain: 1, // Which pet slot to train
-            trainingToUse: 4, // Which training to use, eg. slot 2 is the 2nd training ("obedience")
-            trainingImage: "/game/images/peti/2.png",
+            slotToTrain: 3, // Which pet slot to train
+            trainingToUse: 1, // Which training to use, eg. slot 2 is the 2nd training ("obedience")
+            trainingImage: "/game/images/peti/15.png",
             startTrainingUrl:-1, // set automatically
     
             explorationTime:60, // 1-60 minutes
@@ -237,7 +237,7 @@
         .dragonrip-toolbar-link-item > .image-cont > .image {
             height:70%;
             aspect-ratio:1/1;
-            filter: drop-shadow(0px 0px 2px aqua) drop-shadow(0px 0px 3px rgba(0, 0 , 0, 0.0));
+            filter: drop-shadow(0px 0px 2px aqua) drop-shadow(0px 0px 3px rgba(0, 0 , 0, 0.0)) ;
         }
 
         .dragonrip-toolbar-link-item > .image-cont > .image:after {
